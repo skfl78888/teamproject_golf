@@ -15,3 +15,6 @@ class rules:
     def elbow_angle_detector(self):
         pass
         return None
+    
+    def call(self):
+        pass
