@@ -9,18 +9,25 @@
   - 참고 사이트:  https://doheejin.github.io/vscode/2021/02/25/vscode-server.html
 
 3. 로컬서버에 git설치
-  - sudo apt-get install git 명령어를 입력하여 패키지 리스트를 업데이트합니다.
-  - sudo apt install git 명령어를 입력하여 깃을 설치합니다.
+  - [sudo apt-get install git] 명령어를 입력하여 패키지 리스트를 업데이트합니다.
+  - [sudo apt install git] 명령어를 입력하여 깃을 설치합니다.
   - 참고 사이트: https://coding-factory.tistory.com/502
 
-4. 충호의 git golf 레포 참고해서 git clone(충호가 만들어 놓은 폴더를 내려 받는 과정)
-  - 참고 사이트: https://github.com/skfl78888/teamproject_golf.git
+4. github 설정
+  - github 가입
+  - 터미널에서 git config --global user.name [~~]
+  - 터미널에서 git config --global user.email [~~]
+  - 충호한테 git 콜라보레이터 설정해달라고 하기
 
-5. clone한 폴더 열기
 
-6. github에 등록된 req~~.txt 파일 사용해서 패키지 설치
+5. 충호의 git golf 레포 참고해서 git clone(충호가 만들어 놓은 폴더를 내려 받는 과정)
+  - 사이트: https://github.com/skfl78888/teamproject_golf.git
+
+6. clone한 폴더 열기
+
+7. github에 등록된 req~~.txt 파일 사용해서 패키지 설치
   - 터미널에서 [conda activate TeamProject]
   - [pip install -r requirments.txt 실행]
 
-7. git remote 설정(로컬 저장소와 원격 저장소 연결해주는 과정)
+8. git remote 설정(로컬 저장소와 원격 저장소 연결해주는 과정)
   - 터미널에서 [git remote add golf https://github.com/skfl78888/teamproject_golf.git]
