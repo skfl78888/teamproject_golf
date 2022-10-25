@@ -1,7 +1,11 @@
-1. 로컬서버 아나콘다 환경에서 새로운 가상환경 생성 
-  - 로컬서버 연결 후 까만창에다가 [conda create TeamProject]
+0. TODO: extensions.list 사용해서 extension 동기화 할것!
+    - vscode powershell에서 실행할것!(카톡으로 보내준 extensions.list 사용)
+    - 참고 사이트: https://oysu.tistory.com/52
 
-2. vscode를 통해 로컬서버 원격으로 연결
+1. 로컬서버 아나콘다 환경에서 새로운 가상환경 생성
+  - 로컬서버 연결 후 까만창에다가 [conda create --name TeamProject python=3.10]
+
+2. vscode를 통해 로컬서버 원격으로 연결(까만창에서 로컬 서버를 연결하는 과정을 vscode 에디터로 하는 과정)
   - 참고 사이트:  https://doheejin.github.io/vscode/2021/02/25/vscode-server.html
 
 3. 로컬서버에 git설치
@@ -9,12 +13,14 @@
   - sudo apt install git 명령어를 입력하여 깃을 설치합니다.
   - 참고 사이트: https://coding-factory.tistory.com/502
 
-4. github 가입
-5. 워킹 디렉토리 생성
-6. 로컬 저장소 등록(master)
-7. 충호의 git golf 레포 참고해서 git clone
-   - 참고 사이트: https://github.com/skfl78888/teamproject_golf.git
+4. 충호의 git golf 레포 참고해서 git clone(충호가 만들어 놓은 폴더를 내려 받는 과정)
+  - 참고 사이트: https://github.com/skfl78888/teamproject_golf.git
 
- * TODO: extensions.list 사용해서 extension 동기화 할것!
-    - vscode powershell에서 실행할것!(utils_data.extensions.list)
-    - 참고 사이트: https://oysu.tistory.com/52
+5. clone한 폴더 열기
+
+6. github에 등록된 req~~.txt 파일 사용해서 패키지 설치
+  - 터미널에서 [conda activate TeamProject]
+  - [pip install -r requirments.txt 실행]
+
+7. git remote 설정(로컬 저장소와 원격 저장소 연결해주는 과정)
+  - 터미널에서 [git remote add golf https://github.com/skfl78888/teamproject_golf.git]
