@@ -14,3 +14,7 @@
 6. 로컬 저장소 등록(master)
 7. 충호의 git golf 레포 참고해서 git clone
    - 참고 사이트: https://github.com/skfl78888/teamproject_golf.git
+
+ * TODO: extensions.list 사용해서 extension 동기화 할것!
+    - vscode powershell에서 실행할것!(utils_data.extensions.list)
+    - 참고 사이트: https://oysu.tistory.com/52
