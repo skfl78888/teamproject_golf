@@ -4,9 +4,18 @@
 # io처리 설계 
 # 작성담당자: 신충호사원
 # '''
-
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as img
 from inference.infer import PoseDetector
 
+image = img.imread('./data_folder/adsada.jpg')
+print(image.shape)
+plt.imshow(X=image)
+plt.show()
+
+'''
 pose_params = {
             'STATIC_IMAGE_MODE': False, #False: 감지 편하도록 video stream 임의로 조정 / True video stream 조정하지 않음 
             'MODEL_COMPLEXITY': 1, #포즈 랜드마크 모델의 복잡성: 0, 1 또는 2. 랜드마크 정확도와 추론 지연은 일반적으로 모델 복잡성에 따라 올라갑니다.
@@ -20,6 +29,9 @@ pose_params = {
 pose = PoseDetector()
 res = pose.tracking_pose(dir='./data_folder/good.mp4', trk_points=[], params=pose_params)
 
-print(type(res))
-print(res)
+# print(type(res))
+# print(res)
 
+# mp_drawing = mp.solutions.drawing_utils
+# mp_drawing_styles = mp.solutions.drawing_styles
+'''

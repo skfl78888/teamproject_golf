@@ -1,7 +1,7 @@
 from typing import Dict, List
 import cv2
 import mediapipe as mp
-import numpy as np
+# import numpy as np
 
 
 # '''
@@ -64,7 +64,19 @@ class PoseDetector:
                 break
             image.flags.writeable = False
             pose_res = pose.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-            print(pose_res.pose_landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ELBOW].x)
+            # print(pose_res.pose_landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ELBOW].x)
+            randmarks = [pose_res.pose_landmarks.landmark[i] for i in range(2)]
+            
+            image.flags.writeable = True
+            mp.solutions.drawing_utils.draw_landmarks(
+                cv2.cvtColor(image, cv2.COLOR_RGB2BGR),
+                pose_res.pose_landmarks,
+                mp.solutions.pose.POSE_CONNECTIONS,
+                landmark_drawing_spec=mp.solutions.drawing_styles.get_default_pose_landmarks_style()
+            )
+            cv2.imshow('MediaPipe Pose', image)
+        # video.release()
+        # cv2.destroyAllWindows()
         return pose_res
     
     def drawing_with_pose(self, dir, pose_obj):
