@@ -10,3 +10,7 @@ conda list --export > packagelist.txt
 
 conda list 불러오기(Import 하기, 새로운 가상환경에서 다시 install 하기)
 conda install --file packagelist.txt
+
+----------------------------------------------------------------------------------
+pip 저장
+pip freeze > requirements.txt
