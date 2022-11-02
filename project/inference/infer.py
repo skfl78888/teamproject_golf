@@ -2,6 +2,7 @@ from typing import Dict, List
 import cv2
 import numpy as np
 import mediapipe as mp
+import os
 
 from mediapipe.python.solutions import drawing_utils
 from mediapipe.python.solutions import drawing_styles
@@ -133,20 +134,41 @@ class PoseDetector:
         self.making_landmarks_structure(landmarks=self.landmarks)
         video = cv2.VideoCapture(src_dir)
         fps = video.get(cv2.CAP_PROP_FPS)
-        fourcc = cv2.VideoWriter_fourcc(*'h264')
-        out = cv2.VideoWriter('./teamproject_golf/data_folder/outputs/output.mp4', 0x7634706d, fps, (500, 300))
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter('./teamproject_golf/data_folder/outputs/output.avi', fourcc, fps, (640, 360))
+        # i = 1
+        # while video.isOpened():
+        #     read_ok, frame = video.read()
+        #     if not read_ok:
+        #         print('TRK complete')
+        #         break
+        #     frame.flags.writeable = False
+        #     res_obj = self.trk_process(image=frame)
+        #     self.get_coordis(trk_obj=res_obj)
+        #     landmarked_img = self.drawing_with_pose(frame, trk_obj=res_obj)
+        #     out.write(landmarked_img)
+        #     buf = './teamproject_golf/data_folder/outputs/res_imgs/' + str(i) + '.png'
+        #     cv2.imwrite(buf, img=landmarked_img)
+        #     # print(type(frame))
+        #     # cv2.imshow('ggg', frame)
+        #     # cv2.waitKey(1)
+        #     i += 1
         
-        while video.isOpened():
-            read_ok, frame = video.read()
-            if not read_ok:
-                print('TRK complete')
-                break
-            frame.flags.writeable = False
-            res_obj = self.trk_process(image=frame)
-            self.get_coordis(trk_obj=res_obj)
-            landmarked_img = self.drawing_with_pose(frame, trk_obj=res_obj)
-            out.write(landmarked_img)
+        img_path = "./teamproject_golf/data_folder/outputs/res_imgs/"
+        
+        frame_array = []
+        for imgs in os.listdir(img_path):
+            img = cv2.imread(os.path.join(img_path, imgs))
+            frame_array.append(img)
             
+        for i in range(len(frame_array)):
+            out.write(frame_array[i])
+        out.release()
+        
+        for landmark in self.landmarks:
+            self.structure[landmark] = np.delete(self.structure[landmark], [0, 0], 0)
+    
+    
     def making_landmarks_structure(self, landmarks: List):
         '''프로세스 중 원하는 landmark들을 이용해 Dict of list Data 구조를 생성합니다
         
