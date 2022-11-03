@@ -150,17 +150,6 @@ class PoseDetector:
             size = (weight, height)
             print(size)
         out.release()
-            
-            
-            
-        
-        
-        
-        
-            
-        # for i in range(len(frame_array)):
-        #     out.write(frame_array[i])
-        # out.release()
         
         for landmark in self.landmarks:
             self.structure[landmark] = np.delete(self.structure[landmark], [0, 0], 0)
