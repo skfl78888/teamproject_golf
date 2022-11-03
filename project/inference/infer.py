@@ -133,37 +133,34 @@ class PoseDetector:
     def __call__(self, src_dir):
         self.making_landmarks_structure(landmarks=self.landmarks)
         video = cv2.VideoCapture(src_dir)
+        fourcc = cv2.VideoWriter_fourcc(*'h', '2', '6', '4')
         fps = video.get(cv2.CAP_PROP_FPS)
-        fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        out = cv2.VideoWriter('./teamproject_golf/data_folder/outputs/output.avi', fourcc, fps, (640, 360))
-        # i = 1
-        # while video.isOpened():
-        #     read_ok, frame = video.read()
-        #     if not read_ok:
-        #         print('TRK complete')
-        #         break
-        #     frame.flags.writeable = False
-        #     res_obj = self.trk_process(image=frame)
-        #     self.get_coordis(trk_obj=res_obj)
-        #     landmarked_img = self.drawing_with_pose(frame, trk_obj=res_obj)
-        #     out.write(landmarked_img)
-        #     buf = './teamproject_golf/data_folder/outputs/res_imgs/' + str(i) + '.png'
-        #     cv2.imwrite(buf, img=landmarked_img)
-        #     # print(type(frame))
-        #     # cv2.imshow('ggg', frame)
-        #     # cv2.waitKey(1)
-        #     i += 1
-        
-        img_path = "./teamproject_golf/data_folder/outputs/res_imgs/"
-        
-        frame_array = []
-        for imgs in os.listdir(img_path):
-            img = cv2.imread(os.path.join(img_path, imgs))
-            frame_array.append(img)
-            
-        for i in range(len(frame_array)):
-            out.write(frame_array[i])
+        out = cv2.VideoWriter('./teamproject_golf/data_folder/outputs/output.mp4', fourcc, fps, (720,1280))
+        while video.isOpened():
+            read_ok, frame = video.read()
+            if not read_ok:
+                print('TRK complete')
+                break
+            frame.flags.writeable = False
+            res_obj = self.trk_process(image=frame)
+            self.get_coordis(trk_obj=res_obj)
+            landmarked_img = self.drawing_with_pose(frame, trk_obj=res_obj)
+            out.write(landmarked_img)
+            height, weight, _ = landmarked_img.shape
+            size = (weight, height)
+            print(size)
         out.release()
+            
+            
+            
+        
+        
+        
+        
+            
+        # for i in range(len(frame_array)):
+        #     out.write(frame_array[i])
+        # out.release()
         
         for landmark in self.landmarks:
             self.structure[landmark] = np.delete(self.structure[landmark], [0, 0], 0)
@@ -202,5 +199,6 @@ class PoseDetector:
                                     landmark_list= trk_obj.pose_landmarks,
                                     connections=self.mp_pose.POSE_CONNECTIONS,
                                     landmark_drawing_spec=self.mp_drawing_styles.get_default_pose_landmarks_style())
-        landmarked_image = cv2.resize(copied_img, dsize=(0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+        landmarked_image = cv2.flip(copied_img, 0)
+        landmarked_image = cv2.flip(landmarked_image, 1)
         return landmarked_image 
