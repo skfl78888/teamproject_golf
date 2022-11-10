@@ -20,7 +20,7 @@ pose_params = {
         'MIN_TRACKING_CONFIDENCE': 0.5 #포즈 랜드마크가 성공적으로 추적된 것으로 간주될 랜드마크 추적 모델의 최소 신뢰도 값, 그렇지 않으면 다음 입력 이미지에서 사람 감지가 자동으로 호출됩니다. 더 높은 값으로 설정하면 더 긴 대기 시간을 희생하면서 솔루션의 견고성을 높일 수 있습니다.
     }
 landmarks = ['nose', 'left_elbow']
-dir = 'teamproject_golf/data_folder/src/good.mp4' 
+dir = 'teamproject_golf/data_folder/outputs/mac_land.mp4' 
 
 
 if __name__ == "__main__":
