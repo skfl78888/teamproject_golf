@@ -67,7 +67,14 @@ class ActionClassifier:
         pose_np = np.array(pose_vec)
         label_np = np.array(label_vec)
         return (pose_np @ label_np) / (np.linalg.norm(pose_np, 2) * np.linalg.norm(label_np, 2))
-
+    
+    def restet_inform(self):
+        self.esti_inform = {'address': {},
+                            'backswing': {},
+                            'top':{},
+                            'follow': {},
+                            'impact': {}}
+        
 class PoseDetector:
     '''Google 연구팀에서 제공한 landmark 탐지 라이브러리를 이용하여 비디오의 landmark를 감지하여
     각 프레임에서의 원하는 landmark의 좌표를 제공하는 class입니다.
