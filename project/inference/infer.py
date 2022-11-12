@@ -30,13 +30,9 @@ class inference:
 
 class ActionClassifier:
     def __init__(self):
-        self.label_axises = self.get_json('../data_folder/labels/jsons')
+        self.label_axises = self.get_json('data_folder\labels\jsons')
         
-        self.esti_inform = {'address': {},
-                            'backswing': {},
-                            'top':{},
-                            'follow': {},
-                            'impact': {}}
+        self.esti_inform = {}
         
     def get_json(self, json_dir):
         result = {}
@@ -49,11 +45,11 @@ class ActionClassifier:
             result[action] = axis        
         return result
     
-    def update_information(self, action: str, landmarks: list, pose_coordis: dict, num_frame: int, image:np.ndarray):
-        similarities = [self.calculator(self.label_axises[action][landmark], pose_coordis[landmark]) for landmark in landmarks]
-        similar_mean = np.mean(np.array(similarities))
+    def update_information(self, action: str, parameter: dict, pose_coordis: dict, num_frame: int, image:np.ndarray):
+        similarities = [self.calculator(self.label_axises[action][landmark], pose_coordis[landmark]) for landmark in parameter[action].keys()]
+        similar_mean = np.dot(np.array(similarities), np.array(list(parameter[action].values()))) / len(parameter[action])
         self.a = similar_mean
-        if not self.esti_inform[action]:
+        if not action in list(self.esti_inform.keys()):
             self.esti_inform[action] = {'frame': num_frame, 'similar': similar_mean, 'image': image}
         else:
             if self.esti_inform[action]['similar'] <= similar_mean: 
