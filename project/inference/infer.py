@@ -48,13 +48,14 @@ class ActionClassifier:
     def update_information(self, action: str, parameter: dict, pose_coordis: dict, num_frame: int, image:np.ndarray):
         similarities = [self.calculator(self.label_axises[action][landmark], pose_coordis[landmark]) for landmark in parameter[action].keys()]
         similar_mean = np.dot(np.array(similarities), np.array(list(parameter[action].values()))) / len(parameter[action])
-        self.a = similar_mean
+        self.mean = similar_mean
         if not action in list(self.esti_inform.keys()):
-            self.esti_inform[action] = {'frame': num_frame, 'similar': similar_mean, 'image': image}
+            self.esti_inform[action] = {'frame': num_frame, 'similar': similar_mean, 'coordinate': pose_coordis, 'image': image}
         else:
             if self.esti_inform[action]['similar'] <= similar_mean: 
                 self.esti_inform[action]['frame'] = num_frame
                 self.esti_inform[action]['similar'] =  similar_mean 
+                self.esti_inform[action]['coordinate'] = pose_coordis
                 self.esti_inform[action]['image'] =  image
                 
     def calculator(self, label_vec: list, pose_vec: list):
@@ -65,11 +66,7 @@ class ActionClassifier:
         return (pose_np @ label_np) / (np.linalg.norm(pose_np, 2) * np.linalg.norm(label_np, 2))
     
     def restet_inform(self):
-        self.esti_inform = {'address': {},
-                            'backswing': {},
-                            'top':{},
-                            'follow': {},
-                            'impact': {}}
+        self.esti_inform = {}
         
 class PoseDetector:
     '''Google 연구팀에서 제공한 landmark 탐지 라이브러리를 이용하여 비디오의 landmark를 감지하여
