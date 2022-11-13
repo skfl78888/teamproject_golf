@@ -8,7 +8,9 @@ def run(src_video, params):
     global ac
     src_dir = os.path.join('data_folder\src', src_video)
     actions = params.keys()
+    means = {}
     for action in actions:
+        means[action] = []
         video = cv2.VideoCapture(src_dir)
         while video.isOpened():
             read_ok, frame = video.read()
@@ -25,7 +27,8 @@ def run(src_video, params):
                                 parameter=params,
                                 pose_coordis=pose.coordinates,
                                 num_frame=cnt, image=landmarked_img)
-    return ac.esti_inform
+            means[action].append(ac.mean)
+    return ac.esti_inform, means
             
 
 
@@ -62,11 +65,12 @@ if src_video:
     set_comp = st.button('다 했구, 분석 시작할게!')
 
 if set_comp:
-    estimation_informs = run(src_video, params)
+    estimation_informs, means = run(src_video, params)
     st.subheader('두번째 단계: 분석 결과')
     tabs = st.tabs(list(estimation_informs.keys()))
     for idx, action in enumerate(estimation_informs):
         with tabs[idx]:
+            st.write('추정 frame:', estimation_informs[action]['frame'])
             st.write('Image')
             col1, col2 = st.columns(2)
             with col1:
@@ -74,9 +78,11 @@ if set_comp:
             with col2:
                 dir_ = 'data_folder/labels/label_images/' + action + '.jpg'
                 st.image(image=cv2.cvtColor(cv2.imread(dir_), cv2.COLOR_BGR2RGB))
-            st.write('좌표')
+            st.write('닮음 정도')
+            st.area_chart(means[action])
+            st.write('추정 좌표들')
             st.table(estimation_informs[action]['coordinate'])
-    
+
     
     
 

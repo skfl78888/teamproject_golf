@@ -50,7 +50,10 @@ class ActionClassifier:
         similar_mean = np.dot(np.array(similarities), np.array(list(parameter[action].values()))) / len(parameter[action])
         self.mean = similar_mean
         if not action in list(self.esti_inform.keys()):
-            self.esti_inform[action] = {'frame': num_frame, 'similar': similar_mean, 'coordinate': pose_coordis, 'image': image}
+            self.esti_inform[action] = {'frame': num_frame, 
+                                        'similar': similar_mean, 
+                                        'coordinate': pose_coordis, 
+                                        'image': image}
         else:
             if self.esti_inform[action]['similar'] <= similar_mean: 
                 self.esti_inform[action]['frame'] = num_frame
