@@ -6,7 +6,7 @@ from inference.infer import PoseDetector, ActionClassifier
 def run(src_video, params):
     global pose
     global ac
-    src_dir = os.path.join('data_folder\src', src_video)
+    src_dir = os.path.join('data_folder/src', src_video)
     actions = params.keys()
     means = {}
     for action in actions:
@@ -35,10 +35,10 @@ def run(src_video, params):
 pose, ac = PoseDetector(), ActionClassifier()
 st.title('골프 AI 코치 학습 페이지')
 st.subheader('처음 단계: 영상 선택 및 파라미터 조정')
-src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('.\data_folder\src'))
+src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
 st.write(f'[{src_video}] 을 선택하셨어요!')
 if src_video:
-    st.image(image=cv2.imread('utils_folder\pose_landmarks_reference.jpg'))
+    st.image(image=cv2.imread('utils_folder/pose_landmarks_reference.jpg'))
     st.write('자세별 파라미터 선택')
     tab1, tab2, tab3, tab4, tab5  = st.tabs(['address', 'backswing', 'top', 'impact', 'follow'])
     params = {}
@@ -82,7 +82,7 @@ if set_comp:
             st.area_chart(means[action])
             st.write('추정 좌표들')
             st.table(estimation_informs[action]['coordinate'])
-
+    
     
     
 

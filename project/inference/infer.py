@@ -30,7 +30,7 @@ class inference:
 
 class ActionClassifier:
     def __init__(self):
-        self.label_axises = self.get_json('data_folder\labels\jsons')
+        self.label_axises = self.get_json('data_folder/labels/jsons')
         
         self.esti_inform = {}
         
@@ -169,36 +169,6 @@ class PoseDetector:
         }
         self.coordinates = {}
         self.landmarks = list(self.landmarks_reference.keys())
-
-    # def __call__(self, src_dir):
-    #     self.making_landmarks_structure(landmarks=self.landmarks)
-    #     video = cv2.VideoCapture(src_dir)
-    #     fourcc = cv2.VideoWriter_fourcc(*'h', '2', '6', '4')
-    #     fps = video.get(cv2.CAP_PROP_FPS)
-    #     size = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-    #     # out = cv2.VideoWriter('./teamproject_golf/data_folder/outputs/mac_land.mp4', fourcc, fps, size)
-    #     print(video.get(cv2.CAP_PROP_FRAME_COUNT))
-    #     while video.isOpened():
-    #         cnt = video.get(cv2.CAP_PROP_POS_FRAMES)
-    #         read_ok, frame = video.read()
-    #         if not read_ok:
-    #             print('TRK complete')
-    #             break
-    #         frame.flags.writeable = False
-    #         res_obj = self.trk_process(image=frame)
-    #         self.get_coordis(trk_obj=res_obj)
-            
-    #         # cv2.imshow('ggg', frame)
-    #         landmarked_img = self.drawing_with_pose(frame, trk_obj=res_obj)
-    #         # out.write(landmarked_img)
-    #         # height, weight, _ = landmarked_img.shape
-    #         # size = (weight, height)
-    #         # cv2.waitKey(0)
-    #     video.release()
-    #     # out.release()
-        
-    #     # for landmark in self.landmarks:
-    #     #     self.coordinates[landmark] = np.delete(self.coordinates[landmark], [0, 0], 0)
     
     def trk_process(self, image):
         '''이미지를 mediapipe라는 패키지를 사용하여 결과 객체를 반환합니다'''
