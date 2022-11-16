@@ -1,4 +1,5 @@
 from typing import Dict, List
+import copy
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -31,7 +32,6 @@ class inference:
 class ActionClassifier:
     def __init__(self):
         self.label_axises = self.get_json('data_folder/labels/jsons')
-        
         self.esti_inform = {}
         
     def get_json(self, json_dir):
@@ -46,19 +46,20 @@ class ActionClassifier:
         return result
     
     def update_information(self, action: str, parameter: dict, pose_coordis: dict, num_frame: int, image:np.ndarray):
+        coordis = copy.deepcopy(pose_coordis)
         similarities = [self.calculator(self.label_axises[action][landmark], pose_coordis[landmark]) for landmark in parameter[action].keys()]
         similar_mean = np.dot(np.array(similarities), np.array(list(parameter[action].values()))) / len(parameter[action])
         self.mean = similar_mean
         if not action in list(self.esti_inform.keys()):
             self.esti_inform[action] = {'frame': num_frame, 
                                         'similar': similar_mean, 
-                                        'coordinate': pose_coordis, 
+                                        'coordinate': coordis, 
                                         'image': image}
         else:
-            if self.esti_inform[action]['similar'] <= similar_mean: 
+            if self.esti_inform[action]['similar'] < similar_mean: 
                 self.esti_inform[action]['frame'] = num_frame
                 self.esti_inform[action]['similar'] =  similar_mean 
-                self.esti_inform[action]['coordinate'] = pose_coordis
+                self.esti_inform[action]['coordinate'] = coordis
                 self.esti_inform[action]['image'] =  image
                 
     def calculator(self, label_vec: list, pose_vec: list):
@@ -169,7 +170,7 @@ class PoseDetector:
         }
         self.coordinates = {}
         self.landmarks = list(self.landmarks_reference.keys())
-    
+
     def trk_process(self, image):
         '''이미지를 mediapipe라는 패키지를 사용하여 결과 객체를 반환합니다'''
         return self.process.process(image=image)       
@@ -184,7 +185,7 @@ class PoseDetector:
                                     trk_obj.pose_world_landmarks.landmark[idx].y,
                                     trk_obj.pose_world_landmarks.landmark[idx].z,]
                                     )
-    
+
 
     def drawing_with_pose(self, image, trk_obj):
         '''원본 이미지를 복사하여 landmark들이 추가된 이미지를 만들어 반환합니다'''
@@ -195,6 +196,3 @@ class PoseDetector:
                                     connections=self.mp_pose.POSE_CONNECTIONS,
                                     landmark_drawing_spec=self.mp_drawing_styles.get_default_pose_landmarks_style())
         return copied_img 
-    
-    '''pose추론하고 시간에 따른 룰베이스 조건으로 사진 및 landmarks 재생성'''
-    '''백스윙 할 때만 무빙에버리지 할것'''

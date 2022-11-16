@@ -1,7 +1,12 @@
 import os
 import cv2
+import numpy as np
 import streamlit as st
+import matplotlib.pyplot as plt
 from inference.infer import PoseDetector, ActionClassifier
+
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a, 2) * np.linalg.norm(b, 2))
 
 def run(src_video, params):
     global pose
@@ -33,6 +38,7 @@ def run(src_video, params):
 
 
 pose, ac = PoseDetector(), ActionClassifier()
+st.write(np.degrees(np.arccos(0.5)))
 st.title('골프 AI 코치 학습 페이지')
 st.subheader('처음 단계: 영상 선택 및 파라미터 조정')
 src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
@@ -45,23 +51,28 @@ if src_video:
     with tab1:
         k1 =st.multiselect('address', pose.landmarks_reference.keys())
         if k1:
-            params['address'] = {land : st.slider(label=f'{land}', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k1}   
+            params['address'] = {land : st.slider(label=f'{land}_address', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k1}
+            params['address'] = {land : v for land, v in zip(k1, params['address'].values())}
     with tab2:
         k2 = st.multiselect('backswing',  pose.landmarks_reference.keys())
         if k2:
-            params['backswing'] = {land : st.slider(label=f'{land}', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k2} 
+            params['backswing'] = {land : st.slider(label=f'{land}_back', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k2} 
+            params['backswing'] = {land : v for land, v in zip(k2, params['backswing'].values())}
     with tab3:
         k3 =st.multiselect('top',  pose.landmarks_reference.keys())
         if k3:
-            params['top'] = {land : st.slider(label=f'{land}', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k3}
+            params['top'] = {land : st.slider(label=f'{land}_top', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k3}
+            params['top'] = {land : v for land, v in zip(k3, params['top'].values())}
     with tab4:
         k4 =st.multiselect('impact',  pose.landmarks_reference.keys())
         if k4:
-            params['impact'] = {land : st.slider(label=f'{land}', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k4}
+            params['impact'] = {land : st.slider(label=f'{land}_impact', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k4}
+            params['impact'] = {land : v for land, v in zip(k4, params['impact'].values())}
     with tab5:
         k5 =st.multiselect('follow',  pose.landmarks_reference.keys())
         if k5:
-            params['follow'] = {land : st.slider(label=f'{land}', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k5}
+            params['follow'] = {land : st.slider(label=f'{land}_follow', min_value=0.1, max_value=1.0, step=0.1, value=0.5) for land in k5}
+            params['follow'] = {land : v for land, v in zip(k5, params['follow'].values())}
     set_comp = st.button('다 했구, 분석 시작할게!')
 
 if set_comp:
@@ -78,13 +89,16 @@ if set_comp:
             with col2:
                 dir_ = 'data_folder/labels/label_images/' + action + '.jpg'
                 st.image(image=cv2.cvtColor(cv2.imread(dir_), cv2.COLOR_BGR2RGB))
-            st.write('닮음 정도')
+            st.write('Frame별 닮음 정도')
             st.area_chart(means[action])
             st.write('추정 좌표들')
             st.table(estimation_informs[action]['coordinate'])
-    
-    
-    
+            a = estimation_informs[action]['coordinate']['left_shoulder'] - estimation_informs[action]['coordinate']['right_shoulder']
+            a = a[:2]
+            st.write(a)
+            st.write(cos_sim(a, np.array([1,0])))
+            st.write(np.degrees(np.arccos(cos_sim(a, np.array([1,0])))))
+            
 
     
         
