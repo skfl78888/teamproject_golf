@@ -1,0 +1,52 @@
+{
+    "address": {
+        "left_shoulder": 1.0,
+        "right_shoulder": 1.0,
+        "left_elbow": 1.0,
+        "right_elbow": 1.0,
+        "left_wrist": 1.0,
+        "right_wrist": 1.0,
+        "left_knee": 1.0,
+        "right_knee": 1.0
+    },
+    "backswing": {
+        "left_shoulder": 1.0,
+        "right_shoulder": 1.0,
+        "left_elbow": 1.0,
+        "right_elbow": 1.0,
+        "left_wrist": 1.0,
+        "right_wrist": 1.0,
+        "left_knee": 1.0,
+        "right_knee": 1.0
+    },
+    "top": {
+        "left_shoulder": 1.0,
+        "right_shoulder": 1.0,
+        "left_elbow": 1.0,
+        "right_elbow": 1.0,
+        "left_wrist": 1.0,
+        "right_wrist": 1.0,
+        "left_knee": 1.0,
+        "right_knee": 1.0
+    },
+    "impact": {
+        "left_shoulder": 1.0,
+        "right_shoulder": 1.0,
+        "left_elbow": 1.0,
+        "right_elbow": 1.0,
+        "left_wrist": 1.0,
+        "right_wrist": 1.0,
+        "left_knee": 1.0,
+        "right_knee": 1.0
+    },
+    "follow": {
+        "left_shoulder": 1.0,
+        "right_shoulder": 1.0,
+        "left_elbow": 1.0,
+        "right_elbow": 1.0,
+        "left_wrist": 1.0,
+        "right_wrist": 1.0,
+        "left_knee": 1.0,
+        "right_knee": 1.0
+    }
+}
