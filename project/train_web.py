@@ -39,7 +39,6 @@ def run(src_video, params):
 
 
 pose, ac = PoseDetector(), ActionClassifier()
-st.write(np.degrees(np.arccos(1.0)))
 st.title('골프 AI 코치 학습 페이지')
 st.subheader('처음 단계: 영상 선택 및 파라미터 조정')
 src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
@@ -103,6 +102,3 @@ json_btn = st.button('parmeter 저장')
 if json_btn:
     with open('data_folder/parameter/params.json', 'w') as w:
         json.dump(params, w, indent=4)
-
-
-        
