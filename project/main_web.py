@@ -75,8 +75,3 @@ if set_comp:
             st.write('룰값')
             st.write(esti_rule[action])
             st.write(label_rule[action])
-            
-            
-            st.write('Frame별 닮음 정도')
-            st.write('추정 좌표들')
-            st.table(estimation_informs[action]['coordinate'])
