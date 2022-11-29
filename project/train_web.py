@@ -6,9 +6,6 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from inference.infer import PoseDetector, ActionClassifier
 
-def cos_sim(a, b):
-    return np.dot(a, b) / (np.linalg.norm(a, 2) * np.linalg.norm(b, 2))
-
 def run(src_video, params):
     global pose
     global ac
@@ -93,11 +90,6 @@ if set_comp:
             st.area_chart(means[action])
             st.write('추정 좌표들')
             st.table(estimation_informs[action]['coordinate'])
-            a = estimation_informs[action]['coordinate']['left_shoulder'] - estimation_informs[action]['coordinate']['right_shoulder']
-            a = a[:2]
-            st.write(a)
-            st.write(cos_sim(a, np.array([1,0])))
-            st.write(np.degrees(np.arccos(cos_sim(a, np.array([1,0])))))
 json_btn = st.button('parmeter 저장')
 if json_btn:
     with open('data_folder/parameter/params.json', 'w') as w:
