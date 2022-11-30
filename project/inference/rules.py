@@ -7,13 +7,49 @@ import numpy as np
 
 class Rules:
     def __init__(self):
-        pass
+        self.rule_structure = {
+            "address": {
+                "어깨선각도": 0.0,
+                "양손위치": 0.0,
+                "스탠스": 0.0,
+                "상체기울임정도": 0.0
+            },
+            "backswing": {
+                "왼쪽어깨회전": 0.0,
+                "왼팔펴짐각도": 0.0
+            },
+            "top": {
+                "하체고정": 0.0,
+                "오른쪽다리펴짐각도": 0.0,
+                "스웨이체크": 0.0
+            },
+            "impact": {
+                "행잉백": 0.0,
+                "오른쪽K라인각도": 0.0,
+                "왼팔펴짐각도": 0.0,
+                "오른팔펴짐각도": 0.0
+            },
+            "follow": {
+                "왼쪽라인": 0.0,
+                "치킨윙": 0.0,
+                "체중전진이동": 0.0,
+                "오른쪽다리펴짐각도": 0.0
+            }
+        }
+    
+    def get_grade(self, x: float, label: dict):
+        if (x < label['mean'] + label['std']) and (x > label['mean'] - label['std']):
+            return '우수'
+        elif (x < label['mean'] + label['std'] * 2) or (x > label['mean'] - label['std'] * 2):
+            return '보통'
+        else:
+            return '교정필요'
     
     def handle(self, action: str, value: dict, coordis: dict):
         if action == 'address':
             value[action]['어깨선각도'] = self.tan_slope(coordis['left_shoulder'], coordis['right_shoulder'])
             res = self.center_calc(coordis['left_wrist'], coordis['right_wrist'])
-            value[action]['양손위치'] = self.ratio_interpolation(coordis['left_ankle'],coordis['right_ankle'],res)
+            value[action]['양손위치'] = self.ratio_interpolation(coordis['left_ankle'],coordis['right_ankle'], res)
             value[action]['스탠스'] = self.ratio(coordis['left_shoulder'], coordis['right_shoulder'], coordis['left_heel'], coordis['right_heel'])
             value[action]['상체기울임정도'] = self.ratio(coordis['right_heel'], coordis['right_hip'], coordis['right_hip'], coordis['right_shoulder'])
         elif action == 'backswing':
