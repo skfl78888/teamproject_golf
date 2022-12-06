@@ -54,7 +54,7 @@ class Rules:
             value[action]['어깨선각도  [어깨 각도(°)]'] = self.tan_slope(coordis['left_shoulder'], coordis['right_shoulder'])
             res = self.center_calc(coordis['left_wrist'], coordis['right_wrist'])
             value[action]['양손위치  [양발간격 기준 양손위치 (％)]'] = self.ratio_interpolation(coordis['left_ankle'],coordis['right_ankle'], res)
-            value[action]['스탠스  [어깨대비 양발간격 비율(％)]'] = self.ratio(coordis['left_shoulder'], coordis['right_shoulder'], coordis['left_heel'], coordis['right_heel'])
+            value[action]['스탠스  [양발간격대비 어깨길이 비율(％)]'] = self.ratio(coordis['left_shoulder'], coordis['right_shoulder'], coordis['left_heel'], coordis['right_heel'])
             value[action]['상체기울임정도  [상체 길이 대비 하체 길이 비율(％)]'] = self.ratio(coordis['right_heel'], coordis['right_hip'], coordis['right_hip'], coordis['right_shoulder'])
         elif action == 'backswing':
             value[action]['왼쪽어깨회전  [무릎간격 기준 왼쪽 어깨위치(％)]'] = self.ratio_interpolation(coordis['right_ankle'], coordis['left_ankle'], coordis['left_shoulder'])
