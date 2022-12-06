@@ -48,7 +48,7 @@ def run(src_video, params):
 
 pose, ac, rule = PoseDetector(), ActionClassifier(), Rules()
 st.title('골프 AI 코치')
-st.caption('Made by 강경만, 이원희, 박희용, 손명원, 신충호')
+st.caption('Made by 강경만, 이원희, 박희용, 손명원, 신충호 \n 2022 하반기 포스코 AI 전문가 과정')
 st.header('1단계 영상선택')
 src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
 st.caption(f'[{src_video}] 을 선택하셨어요!')
