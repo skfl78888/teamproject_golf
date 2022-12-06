@@ -1,11 +1,8 @@
 import os
 import cv2
 import json
-import copy
-import numpy as np
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 from inference.infer import PoseDetector, ActionClassifier
 from inference.rules import Rules
 
@@ -62,7 +59,6 @@ for column, guide in zip(st.columns(2), ['Input', 'Reference']):
         st.subheader(guide)
         st.video(video_dir, 'rb')
 
-
 if set_comp:
     with open('data_folder/parameter/params.json', 'r') as r:
         params = json.load(r)
@@ -94,8 +90,5 @@ if set_comp:
                     data[col] = {i : label_rule[action][i]['mean'] for i in label_rule[action].keys()}
                 else:
                     data[col] = {i : rule.get_grade(esti_rule[action][i], label_rule[action][i]) for i in label_rule[action].keys()}
-            
             df = pd.DataFrame(data=data)
-            
             st.dataframe(df.style.applymap(draw_color))
-            # st.write(label_rule[action])
