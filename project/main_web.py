@@ -95,4 +95,4 @@ if set_comp:
             df = pd.DataFrame(data=data)
             
             st.dataframe(df.style.applymap(draw_color))
-            st.write(label_rule[action])
+            # st.write(label_rule[action])
