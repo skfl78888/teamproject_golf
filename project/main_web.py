@@ -45,8 +45,10 @@ def run(src_video, params):
                                 pose_coordis=pose.coordinates,
                                 num_frame=cnt, image=landmarked_img)
     return ac.esti_inform
+
 pose, ac, rule = PoseDetector(), ActionClassifier(), Rules()
-st.title('골프 AI 코칭 페이지')
+st.title('골프 AI 코치')
+st.caption('Made by 강경만, 이원희, 박희용, 손명원, 신충호')
 st.header('1단계 영상선택')
 src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
 st.caption(f'[{src_video}] 을 선택하셨어요!')
