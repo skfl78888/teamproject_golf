@@ -50,9 +50,8 @@ pose, ac, rule = PoseDetector(), ActionClassifier(), Rules()
 st.title('골프 AI 코치')
 st.caption('2022 하반기 포스코 AI 전문가 과정')
 st.caption('Made by 강경만, 이원희, 박희용, 손명원, 신충호') 
-st.header('1단계 영상선택')
+st.header('영상선택')
 src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
-st.caption(f'[{src_video}] 을 선택하셨어요!')
 set_comp = st.button('분석 시작')
 for column, guide in zip(st.columns(2), ['Input', 'Reference']):
     with column:
@@ -69,7 +68,7 @@ if set_comp:
     with st.spinner('분석 중 입니다...'):
         estimation_informs = run(src_video, params)
     st.success('Done!')
-    st.header('2단계 분석결과')
+    st.header('분석결과')
     tabs = st.tabs(list(estimation_informs.keys()))
     with open('data_folder/parameter/label_rule_value.json', 'rb') as r:
         label_rule = json.load(r)
