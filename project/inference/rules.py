@@ -38,9 +38,13 @@ class Rules:
         }
     
     def get_grade(self, x: float, label: dict):
-        if (x < label['mean'] + label['std']) and (x > label['mean'] - label['std']):
+        p_1sigma = label['mean'] + label['std']
+        p_2sigma = label['mean'] + label['std'] * 2
+        m_1sigma = label['mean'] - label['std']
+        m_2sigma = label['mean'] - label['std'] * 2
+        if (m_1sigma < x) and (x < p_1sigma):
             return '우수'
-        elif (x < label['mean'] + label['std'] * 2) or (x > label['mean'] - label['std'] * 2):
+        elif (m_2sigma < x and x < m_1sigma) or (p_1sigma < x and x < p_2sigma):
             return '보통'
         else:
             return '교정필요'

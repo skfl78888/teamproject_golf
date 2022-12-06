@@ -25,7 +25,7 @@ def draw_color(x):
 def run(src_video, params):
     global pose
     global ac
-    src_dir = os.path.join('data_folder/src/pro', src_video)
+    src_dir = os.path.join('data_folder/src', src_video)
     actions = params.keys()
     for action in actions:
         video = cv2.VideoCapture(src_dir)
@@ -48,13 +48,13 @@ def run(src_video, params):
 pose, ac, rule = PoseDetector(), ActionClassifier(), Rules()
 st.title('골프 AI 코칭 페이지')
 st.header('1단계 영상선택')
-src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src/pro'))
+src_video = st.selectbox('분석할 영상을 선택하여 주세요!', os.listdir('data_folder/src'))
 st.caption(f'[{src_video}] 을 선택하셨어요!')
 set_comp = st.button('분석 시작')
 for column, guide in zip(st.columns(2), ['Input', 'Reference']):
     with column:
         if guide == 'Input':
-            video_dir = os.path.join('data_folder/src/pro', src_video)
+            video_dir = os.path.join('data_folder/src', src_video)
         else:
             video_dir = 'data_folder/labels/mac.mp4'
         st.subheader(guide)
