@@ -62,6 +62,7 @@ for column, guide in zip(st.columns(2), ['Input', 'Reference']):
         st.subheader(guide)
         st.video(video_dir, 'rb')
 
+
 if set_comp:
     with open('data_folder/parameter/params.json', 'r') as r:
         params = json.load(r)
