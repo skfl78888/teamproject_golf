@@ -31,3 +31,5 @@
 
 8. git remote 설정(로컬 저장소와 원격 저장소 연결해주는 과정)
   - 터미널에서 [git remote add golf https://github.com/skfl78888/teamproject_golf.git]
+
+![address](https://user-images.githubusercontent.com/68595420/206379446-75638f19-edb3-4362-ae7c-47a6ac743f29.jpg)
