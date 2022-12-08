@@ -1,6 +1,7 @@
 2022년도 하반기 포스코 AI전문가 과정 팀프로젝트
 - 골프 AI 코치 시스템
 - Made by 이원희, 강경만, 박희용, 손명원, 신충호 
+
 ![KakaoTalk_20221208_160335934_01](https://user-images.githubusercontent.com/68595420/206381218-f01f5269-c3da-42f2-83fa-c48e7e9584dd.jpg)
 ![KakaoTalk_20221208_160335934_02](https://user-images.githubusercontent.com/68595420/206381294-a0485ec0-dc49-492b-8b4b-bf8a00fca050.jpg)
 ![KakaoTalk_20221208_160335934_03](https://user-images.githubusercontent.com/68595420/206381338-efb9327a-4011-41c1-81d6-18eb956b099f.jpg)
